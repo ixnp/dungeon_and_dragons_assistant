@@ -4,11 +4,11 @@ class GamesController < ApplicationController
     end
     
     def create 
-        @game = Game.new
+        @game = Game.new(game_params)
         @game.save
         if @game.save
         flash[:notice] = "Let the advanture begin!"
-        redirect_to games_show(@game)
+        redirect_to game_path(@game)
         else 
             render 'new'
         end
