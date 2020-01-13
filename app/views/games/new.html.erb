@@ -1,0 +1,16 @@
+<h1>Start a New Game!<h1>
+<%= form_for @game do |f|%>
+<div>
+<%= f.label :title%>
+<%= f.text_field :title%>
+</div><br/>
+<div>
+<%= f.label :lore%>
+<%= f.text_area :lore%>
+</div><br/>
+<div>
+<%= f.label :rules%>
+<%= f.text_area :rules%>
+</div><br/>
+<% f.submit %>
+<%end%>
