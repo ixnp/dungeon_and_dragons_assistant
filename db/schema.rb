@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_043541) do
+ActiveRecord::Schema.define(version: 2020_01_14_191527) do
 
   create_table "character_sheets", force: :cascade do |t|
     t.string "name"
@@ -46,6 +46,9 @@ ActiveRecord::Schema.define(version: 2020_01_14_043541) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
+    t.string "password"
+    t.index ["email"], name: "index_users_on_email"
   end
 
 end
