@@ -1,1 +1,17 @@
-<h1>Game<h1>
+
+<h1><%=@game.title%></h1>
+<p>
+Summery: <%=@game.summery%>
+</p>
+<p>
+Lore: <%=@game.lore%>
+</p>
+<p>
+Rules: <%= @game.rules%>
+</p>
+<%=link_to "Edit", edit_game_path(@game)%> <br/>
+<%=link_to "Remove Game", game_path(@game), method: :delete, 
+                                          data: { confirm: "Are you sure you want to delete this article?" }, 
+                                          class: "btn btn-xs btn-danger"%>
+
+<%=link_to "Back to All games", games_path%>
