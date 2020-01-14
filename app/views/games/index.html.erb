@@ -1,0 +1,17 @@
+<h1>All Games in the history of games <h1>
+<div><%=link_to"New Game", new_game_path%></div>
+
+<table>
+<tr>
+<th>Title</th>
+<th>Lore</th>
+</tr>
+<% @games.each do |game|%>
+<tr>
+<td><%=game.title%></td>
+<td><%=game.summery%></td>
+<td>
+<%=link_to 'More info', game_path(game)%>
+</tr>
+<%end%>
+</table>
