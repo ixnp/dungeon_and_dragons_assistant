@@ -1,0 +1,32 @@
+
+<%= form_for @game do |f|%>
+    <div>
+        <%= f.label :title%>
+        <%= f.text_field :title%>
+    </div><br/>
+    <div>
+        <%= f.label :summery%>
+        <%= f.text_area :summery%>
+    </div><br/>
+    <div>
+        <%= f.label :lore%>
+        <%= f.text_area :lore%>
+    </div><br/>
+    <div>
+        <%= f.label :rules%>
+        <%= f.text_area :rules%>
+    </div><br/>
+    <%= f.submit %>
+<%end%>
+
+<% if @game.errors.any?%>
+<h2>The following errors prevented the game from getting created</h2>
+    <ul>
+    <%@game.errors.full_messages.each do |msg|%>
+        <li><%=msg%></li>
+    <%end%>
+    </ul>
+<%end%>
+
+<%= link_to "Back to Games", games_path %>
+
