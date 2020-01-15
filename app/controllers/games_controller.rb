@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  # TODO: finish before_action
   # before_action :set_game, only[:edit,:update,:show,:destroy]
   def new
     @game = Game.new
@@ -50,4 +51,5 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(:title, :summery, :lore, :rules)
   end
+  
 end
