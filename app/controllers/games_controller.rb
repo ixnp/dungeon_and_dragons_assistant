@@ -1,16 +1,17 @@
 class GamesController < ApplicationController
-  # TODO: finish before_action
-  # before_action :set_game, only[:edit,:update,:show,:destroy]
+  before_action :set_game, only: [:edit, :update, :show, :destroy]
+  before_action :require_user, except: [:index, :show]
+  before_action :require_current_user, only: [:edit, :update, :destroy]
+
   def new
     @game = Game.new
   end
 
   def show
-    @game = Game.find(params[:id])
   end
 
   def edit
-    @game = Game.find(params[:id])
+    
   end
 
   def index
@@ -18,7 +19,6 @@ class GamesController < ApplicationController
   end
 
   def destroy
-    @game = Game.find(params[:id])
     @game.destroy
     flash[:notice] = "Game removed!"
     redirect_to games_path
@@ -28,6 +28,7 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
     @game.save
     if @game.save
+      @game.users << current_user
       flash[:notice] = "Let the advanture begin!"
       Rails.logger.debug(@game)
       redirect_to game_path(@game)
@@ -37,7 +38,6 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game = Game.find(params[:id])
     if @game.update(game_params)
       flash[:notice] = "Your game was updated"
       redirect_to game_path(@game)
@@ -51,5 +51,16 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(:title, :summery, :lore, :rules)
   end
-  
+
+  def set_game
+    @game = Game.find(params[:id])
+  end
+
+  def require_current_user
+
+    if current_user != @game.users.find_index{ |item| item[:name] == current_user }
+      flash[:danger] = "This is not your game, you can only edit or delete the games you've made!"
+      redirect_to game_path()
+    end
+   end
 end

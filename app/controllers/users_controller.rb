@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   # TODO: finish before action
-  # before_action :set_user, only: [ :show]
+  before_action :set_user, only: [ :show]
   def new
     @user = User.new
   end
 
   def show
-    @user = User.find(params[:id])
+   
   end
 
   def create
@@ -26,5 +26,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
