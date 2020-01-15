@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    has_secure_password
     has_many :user_games
     has_many :games, through: :user_games
     EMAIL_VALIDATION = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

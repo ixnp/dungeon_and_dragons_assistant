@@ -5,7 +5,6 @@ class CreateCharacterSheets < ActiveRecord::Migration[6.0]
       t.text :bio
       t.text :stats
       t.string :img
-
       t.timestamps
     end
   end
