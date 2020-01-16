@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  # TODO: finish before action
   before_action :set_user, only: [ :show]
   def new
     @user = User.new
