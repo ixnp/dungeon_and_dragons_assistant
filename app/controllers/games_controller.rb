@@ -27,10 +27,10 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     @dm = Dm.new
-    
+
     if @dm.save
       @game.dm_id = @dm.id
-      
+
       if @game.save
         @game.users << current_user
         flash[:notice] = "Let the advanture begin!"
@@ -54,6 +54,7 @@ class GamesController < ApplicationController
   end
 
   private
+
   def game_params
     params.require(:game).permit(:title, :summery, :lore, :rules)
   end

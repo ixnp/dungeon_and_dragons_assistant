@@ -1,13 +1,14 @@
 class Games::NotesController < NotesController
-before_action :set_notable
+  before_action :set_notable
 
-def create
+  def create
     super
     @notable.save
-end 
+  end
 
-private 
-    def set_notable
-        @notable = Game.find(params[:game_id])
-    end
+  private
+
+  def set_notable
+    @notable = Game.find(params[:game_id])
+  end
 end
