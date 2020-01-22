@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  # TODO: finish before action
   before_action :set_user, only: [ :show]
   def new
     @user = User.new
@@ -20,6 +19,11 @@ class UsersController < ApplicationController
     else 
         render 'new'
     end
+  end
+
+  def update
+    @user.update(user_params)
+    byebug
   end
 
 

@@ -8,10 +8,10 @@ class GamesController < ApplicationController
   end
 
   def show
+    @notable = Game.find(params[:id])
   end
 
   def edit
-    
   end
 
   def index
@@ -26,12 +26,19 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
-    @game.save
-    if @game.save
-      @game.users << current_user
-      flash[:notice] = "Let the advanture begin!"
-      Rails.logger.debug(@game)
-      redirect_to game_path(@game)
+    @dm = Dm.new
+    
+    if @dm.save
+      @game.dm_id = @dm.id
+      
+      if @game.save
+        @game.users << current_user
+        flash[:notice] = "Let the advanture begin!"
+        Rails.logger.debug(@game)
+        redirect_to game_path(@game)
+      else
+        render "new"
+      end
     else
       render "new"
     end
@@ -57,10 +64,9 @@ class GamesController < ApplicationController
   end
 
   def require_current_user
-
-    if current_user != @game.users.find_index{ |item| item[:name] == current_user }
+    if @game.users.find { |item| item[:name] == current_user.name }
       flash[:danger] = "This is not your game, you can only edit or delete the games you've made!"
       redirect_to game_path()
     end
-   end
+  end
 end
