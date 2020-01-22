@@ -5,9 +5,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(name: params[:session][:name])
     if user && user.authenticate(params[:session][:password])
-      token = SecureRandom.urlsafe_base64(20)
-      cookies[:sessiontoken] = token
-      user.update_column("sessiontoken", token)
+      user.set_token(cookies)
       session[:user_id] = user.id
       flash[:success] = "welcome back"
       redirect_to user_path(user)

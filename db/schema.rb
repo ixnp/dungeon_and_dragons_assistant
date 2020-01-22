@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_22_191309) do
+ActiveRecord::Schema.define(version: 2020_01_22_232411) do
 
   create_table "character_sheets", force: :cascade do |t|
     t.string "name"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2020_01_22_191309) do
     t.string "password_digest"
     t.string "sessiontoken"
     t.index ["email"], name: "index_users_on_email"
+    t.index ["sessiontoken"], name: "index_users_on_sessiontoken", unique: true
   end
 
   add_foreign_key "games", "dms"
