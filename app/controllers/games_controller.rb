@@ -8,6 +8,7 @@ class GamesController < ApplicationController
   end
 
   def show
+    @notable = Game.find(params[:id])
   end
 
   def edit

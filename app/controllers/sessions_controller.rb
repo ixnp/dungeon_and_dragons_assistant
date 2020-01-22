@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
     def create
     
         user = User.find_by(name: params[:session][:name])
-        
         if user && user.authenticate(params[:session][:password])
             token = SecureRandom.urlsafe_base64(20)
             cookies[:sessiontoken] = token

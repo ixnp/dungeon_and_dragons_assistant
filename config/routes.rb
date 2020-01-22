@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-resources:games
+resources :games do
+resources :notes, module: :games
+end
 resources:users, except:[:new]
 resources:character_sheets
-resources:dms do
+resources :dms do
     resources :notes, module: :dms
 end
 
-resources:players do
+resources :players do
     resources :notes, module: :players
 end
 
