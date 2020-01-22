@@ -26,10 +26,10 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     @dm = Dm.new
-    @dm.save
+    
     if @dm.save
       @game.dm_id = @dm.id
-      @game.save
+      
       if @game.save
         @game.users << current_user
         flash[:notice] = "Let the advanture begin!"
@@ -63,7 +63,7 @@ class GamesController < ApplicationController
   end
 
   def require_current_user
-    if current_user != @game.users.find_index { |item| item[:name] == current_user }
+    if @game.users.find { |item| item[:name] == current_user.name }
       flash[:danger] = "This is not your game, you can only edit or delete the games you've made!"
       redirect_to game_path()
     end

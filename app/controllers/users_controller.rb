@@ -21,6 +21,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user.update(user_params)
+    byebug
+  end
+
 
   private
 
