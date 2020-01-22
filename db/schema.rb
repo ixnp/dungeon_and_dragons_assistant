@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_21_204736) do
+ActiveRecord::Schema.define(version: 2020_01_22_191309) do
 
   create_table "character_sheets", force: :cascade do |t|
     t.string "name"
@@ -54,15 +54,15 @@ ActiveRecord::Schema.define(version: 2020_01_21_204736) do
   end
 
   create_table "user_games", force: :cascade do |t|
-    t.integer "game_id"
-    t.integer "user_id"
+    t.integer "game_id", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 25, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "email"
+    t.string "email", null: false
     t.string "password_digest"
     t.string "sessiontoken"
     t.index ["email"], name: "index_users_on_email"
