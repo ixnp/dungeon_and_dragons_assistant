@@ -1,17 +1,17 @@
 class NotesController < ApplicationController
-
-def new
+  def new
     @note = @notable.notes.new
-end
+  end
 
-def create
+  def create
     @note = @notable.notes.new(note_params)
     @notable.save
     redirect_to @notable, notice: "Note Posted!"
-end 
+  end
 
-private 
-    def note_params
-        params.require(:note).permit(:content)
-    end 
-end 
+  private
+
+  def note_params
+    params.require(:note).permit(:content)
+  end
+end
