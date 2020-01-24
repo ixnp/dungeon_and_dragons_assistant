@@ -16,4 +16,6 @@ class User < ApplicationRecord
     self.update_column("sessiontoken", token)
   end 
 
+ 
+
 end

@@ -1,5 +1,11 @@
 class SessionsController < ApplicationController
   def new
+    if User.find_by(sessiontoken: cookies[:sessiontoken])
+      user = User.find_by(sessiontoken: cookies[:sessiontoken])
+      user.set_token(cookies)
+      session[:user_id] = user.id
+      redirect_to user_path(user)
+    end 
   end
 
   def create
@@ -16,6 +22,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    cookies[:sessiontoken] = nil
     session[:user_id] = nil
     flash[:success] = "logged out"
     redirect_to login_path

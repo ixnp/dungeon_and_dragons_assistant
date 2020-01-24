@@ -14,6 +14,7 @@ class GamesController < ApplicationController
   end
 
   def edit
+ 
   end
 
   def index
@@ -48,6 +49,18 @@ class GamesController < ApplicationController
       render "edit"
     end
   end
+
+  def joingame 
+       byebug
+    @userGame = UserGame.select{ |game| game.game_id == params[:id]}
+    byebug
+    @found = @userGame.select{user_id:current_user.id}
+    if found == nil
+      @game.users.push(current_user)
+      UserGame.new(game_id: @game.id, user_id: current_user.id)
+    byebug
+    end
+  end 
 
   private
 

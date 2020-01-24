@@ -5,6 +5,9 @@ class NotesController < ApplicationController
 
   def create
     @note = @notable.notes.new(note_params)
+
+    @note.author = current_user.name
+    @note.save
     @notable.save
     redirect_to @notable, notice: "Note Posted!"
   end
