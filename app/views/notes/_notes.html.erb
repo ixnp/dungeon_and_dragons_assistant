@@ -2,11 +2,11 @@
 <% notable.notes.each do |note|%>
    
     <p>
-    <%=note.content%>
-    :
+
     <%=note.author%>
     <em><%= time_ago_in_words note.created_at%>
-    
+    :
+      <%=note.content%>
     </p>
 
 <%end%>

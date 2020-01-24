@@ -1,11 +1,12 @@
-<h1>Hi <%=@user.name%></h1>
+<h1 id="user-header"> <%=@user.name%></h1>
 
 
 <table>
-<tr>Your Games:</tr>
+<h2 id="table-label">Your Games</h2>
 <tr>
 <th>Title</th>
-<th>Summery</th>
+<th>Summary</th>
+<th>Role</th>
 </tr>
 <tr>
 <% @userGames.each do |game|%>
@@ -19,7 +20,7 @@
        <p>Player</p>
     <%end%>
 </td>
-<td>
+<td class="more-info-btn">
 <%=link_to 'More info', game_path(game)%>
 </tr>
 <%end%>
