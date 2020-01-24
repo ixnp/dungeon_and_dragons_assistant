@@ -8,4 +8,14 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { minimum: 3, maximum: 25 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 80 }, format: { with: EMAIL_VALIDATION }
   validates :password, presence: true, length: { minimum: 6, maximum: 25 }
+  validates :sessiontoken, presence: true, uniqueness:true
+
+  def set_token(cookies)
+    token = SecureRandom.urlsafe_base64(16)
+    cookies[:sessiontoken] = { value: token, expires: 1.hour }
+    self.update_column("sessiontoken", token)
+  end 
+
+ 
+
 end

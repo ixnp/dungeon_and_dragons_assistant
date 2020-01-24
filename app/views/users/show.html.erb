@@ -1,1 +1,29 @@
 <h1>Hi <%=@user.name%></h1>
+
+
+<table>
+<tr>Your Games:</tr>
+<tr>
+<th>Title</th>
+<th>Summery</th>
+</tr>
+<tr>
+<% @userGames.each do |game|%>
+<tr>
+<td><%=game.title%></td>
+<td><%=game.summery%></td>
+<td>
+  <% if !!game.dm_id %>
+      <p>DM</p>
+      <%else%>
+       <p>Player</p>
+    <%end%>
+</td>
+<td>
+<%=link_to 'More info', game_path(game)%>
+</tr>
+<%end%>
+
+</table>
+
+  

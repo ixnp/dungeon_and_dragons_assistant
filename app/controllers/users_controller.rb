@@ -6,8 +6,11 @@ class UsersController < ApplicationController
     end
 
     def show
-    end
-
+    
+      # probably need to move this to model
+    @userGames = UserGame.find_user_games(@user)
+    
+    end 
     def create
       @user = User.new(user_params)
       if @user.save

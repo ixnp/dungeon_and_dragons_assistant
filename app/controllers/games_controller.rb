@@ -9,9 +9,12 @@ class GamesController < ApplicationController
 
   def show
     @notable = Game.find(params[:id])
+    @dm = User.find_by(id:@game.dm_id)
+    
   end
 
   def edit
+ 
   end
 
   def index
@@ -25,12 +28,8 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params)
-    @dm = Dm.new
-
-    if @dm.save
-      @game.dm_id = @dm.id
-
+    @game = Game.new(game_params)   
+    @game.dm_id = current_user.id
       if @game.save
         @game.users << current_user
         flash[:notice] = "Let the advanture begin!"
@@ -39,9 +38,7 @@ class GamesController < ApplicationController
       else
         render "new"
       end
-    else
-      render "new"
-    end
+   
   end
 
   def update
@@ -52,6 +49,18 @@ class GamesController < ApplicationController
       render "edit"
     end
   end
+
+  def joingame 
+       byebug
+    @userGame = UserGame.select{ |game| game.game_id == params[:id]}
+    byebug
+    @found = @userGame.select{user_id:current_user.id}
+    if found == nil
+      @game.users.push(current_user)
+      UserGame.new(game_id: @game.id, user_id: current_user.id)
+    byebug
+    end
+  end 
 
   private
 

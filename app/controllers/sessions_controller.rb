@@ -1,13 +1,17 @@
 class SessionsController < ApplicationController
   def new
+    if User.find_by(sessiontoken: cookies[:sessiontoken])
+      user = User.find_by(sessiontoken: cookies[:sessiontoken])
+      user.set_token(cookies)
+      session[:user_id] = user.id
+      redirect_to user_path(user)
+    end 
   end
 
   def create
     user = User.find_by(name: params[:session][:name])
     if user && user.authenticate(params[:session][:password])
-      token = SecureRandom.urlsafe_base64(20)
-      cookies[:sessiontoken] = token
-      user.update_column("sessiontoken", token)
+      user.set_token(cookies)
       session[:user_id] = user.id
       flash[:success] = "welcome back"
       redirect_to user_path(user)
@@ -18,6 +22,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    cookies[:sessiontoken] = nil
     session[:user_id] = nil
     flash[:success] = "logged out"
     redirect_to login_path
