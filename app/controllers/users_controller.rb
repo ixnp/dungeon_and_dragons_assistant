@@ -6,6 +6,13 @@ class UsersController < ApplicationController
     end
 
     def show
+      @userGameArr = []
+      # probably need to move this to model
+    @userGames = UserGame.all.map{|game| 
+      if game.user_id == @user.id
+        @userGameArr.push(Game.find(game.game_id))
+      end
+      }
     end
 
     def create
